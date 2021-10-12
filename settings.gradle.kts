@@ -3,9 +3,9 @@ plugins {
   id("com.gradle.enterprise") version "3.7"
 }
 
-rootProject.name = "template-kmp-library"
+rootProject.name = "kontainers"
 include(":test")
 include(
-  ":lib:template-kmp-library-core",
-  ":lib:template-kmp-library-dsl"
+  ":lib:kontainers-buildah",
+  ":lib:kontainers-podman"
 )
