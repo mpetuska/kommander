@@ -1,11 +1,9 @@
-package dev.petuska.kommander.core
-
-import dev.petuska.kommander.core.util.StringLike
-import dev.petuska.kommander.core.util.executeCommand
+package dev.petuska.kommander.core.util
 
 public data class CMD(val exe: String, val args: List<String> = emptyList()) : StringLike {
   override fun toString(): String = stringify()
-  override fun stringify(): String = exe + args.joinToString("") { " $it" }
+  override fun stringify(): String =
+    exe + args.joinToString("") { " $it" }
 
   /**
    * Executes the command

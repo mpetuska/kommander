@@ -1,29 +1,21 @@
-package dev.petuska.kommander.buildah.domain.program
+package dev.petuska.kommander.buildah.domain.option
 
 import dev.petuska.kommander.core.Option
 import dev.petuska.kommander.buildah.domain.util.LogLevel as PublicLogLevel
 
-public sealed interface BuildahProgramOption : Option {
+public sealed interface BuildahOption : Option {
   /**
    * Show help
    */
-  public object Help : BuildahProgramOption {
+  public object Help : BuildahOption {
     override val value: String? = null
     override val name: String = "--help"
   }
 
   /**
-   * Show version
-   */
-  public object Version : BuildahProgramOption {
-    override val value: String? = null
-    override val name: String = "--version"
-  }
-
-  /**
    * The log level to be used. Either "trace", "debug", "info", "warn", "error", "fatal", or "panic", defaulting to "warn".
    */
-  public data class LogLevel(val level: PublicLogLevel) : BuildahProgramOption {
+  public data class LogLevel(val level: PublicLogLevel) : BuildahOption {
     override val value: String get() = level.toString()
     override val name: String = "--log-level"
   }
@@ -34,7 +26,7 @@ public sealed interface BuildahProgramOption : Option {
    * It is not recommended that this option be used, as the default behavior of using the system-wide
    * configuration (/etc/containers/registries.conf) is most often preferred.
    */
-  public data class RegistriesConf(override val value: String) : BuildahProgramOption {
+  public data class RegistriesConf(override val value: String) : BuildahOption {
     override val name: String = "--registries-conf"
   }
 
@@ -44,7 +36,7 @@ public sealed interface BuildahProgramOption : Option {
    * It is not recommended that this option be used, as the default behavior of using the system-wide
    * configuration (/etc/containers/registries.d) is most often preferred.
    */
-  public data class RegistriesConfDir(override val value: String) : BuildahProgramOption {
+  public data class RegistriesConfDir(override val value: String) : BuildahOption {
     override val name: String = "--registries-conf-dir"
   }
 
@@ -53,7 +45,7 @@ public sealed interface BuildahProgramOption : Option {
    * "$HOME/.local/share/containers/storage" for other users) Default root dir
    * is configured in /etc/containers/storage.conf
    */
-  public data class Root(override val value: String) : BuildahProgramOption {
+  public data class Root(override val value: String) : BuildahOption {
     override val name: String = "--root"
   }
 
@@ -61,7 +53,7 @@ public sealed interface BuildahProgramOption : Option {
    * Storage state dir (default: "/run/containers/storage" for UID 0, "/run/user/$UID" for other users)
    * Default state dir is configured in /etc/containers/storage.conf
    */
-  public data class RunRoot(override val value: String) : BuildahProgramOption {
+  public data class RunRoot(override val value: String) : BuildahOption {
     override val name: String = "--runroot"
   }
 
@@ -71,7 +63,7 @@ public sealed interface BuildahProgramOption : Option {
    * The STORAGE_DRIVER environment variable overrides the default.
    * The --storage-driver specified driver overrides all.
    */
-  public data class StorageDriver(override val value: String) : BuildahProgramOption {
+  public data class StorageDriver(override val value: String) : BuildahOption {
     override val name: String = "--storage-driver"
   }
 
@@ -81,7 +73,7 @@ public sealed interface BuildahProgramOption : Option {
    * The STORAGE_OPTS environment variable overrides the default.
    * The --storage-opt specified options overrides all.
    */
-  public data class StorageOpt(override val value: String) : BuildahProgramOption {
+  public data class StorageOpt(override val value: String) : BuildahOption {
     override val name: String = "--storage-opt"
   }
 
@@ -104,7 +96,7 @@ public sealed interface BuildahProgramOption : Option {
    * NOTE: When this option is specified by a rootless user, the specified mappings are relative to the
    * rootless usernamespace in the container, rather than being relative to the host as it would be when run rootful.
    */
-  public data class UserNsUidMap(override val value: String) : BuildahProgramOption {
+  public data class UserNsUidMap(override val value: String) : BuildahOption {
     override val name: String = "--userns-uid-map"
   }
 
@@ -127,7 +119,7 @@ public sealed interface BuildahProgramOption : Option {
    * NOTE: When this option is specified by a rootless user, the specified mappings are relative to the rootless
    * usernamespace in the container, rather than being relative to the host as it would be when run rootful.
    */
-  public data class UserNsGidMap(override val value: String) : BuildahProgramOption {
+  public data class UserNsGidMap(override val value: String) : BuildahOption {
     override val name: String = "--userns-gid-map"
   }
 }

@@ -1,10 +1,9 @@
 package dev.petuska.kommander.buildah
 
-import dev.petuska.kommander.buildah.domain.program.BuildahProgram
-import dev.petuska.kommander.buildah.domain.program.BuildahProgramImpl
+import dev.petuska.kommander.buildah.domain.command.BuildahProgram
+import dev.petuska.kommander.buildah.domain.command.BuildahProgramImpl
+import dev.petuska.kommander.core.util.KommanderProgramDsl
 
-@DslMarker
-@Retention(AnnotationRetention.SOURCE)
-public annotation class BuildahDsl
-
-public val buildah: BuildahProgram get() = BuildahProgramImpl(mutableSetOf(), mutableSetOf())
+@KommanderProgramDsl
+public val buildah: BuildahProgram
+  get() = BuildahProgramImpl()

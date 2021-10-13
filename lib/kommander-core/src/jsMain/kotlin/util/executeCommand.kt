@@ -1,6 +1,5 @@
 package dev.petuska.kommander.core.util
 
-import dev.petuska.kommander.core.CMD
 import kotlin.js.Json
 import kotlin.js.json
 

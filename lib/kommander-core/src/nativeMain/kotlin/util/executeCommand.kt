@@ -1,6 +1,5 @@
 package dev.petuska.kommander.core.util
 
-import dev.petuska.kommander.core.CMD
 import kotlinx.cinterop.refTo
 import kotlinx.cinterop.toKString
 import platform.posix.fgets
