@@ -11,14 +11,24 @@ plugins {
   kotlin("multiplatform")
   kotlin("plugin.serialization")
   id("plugin.common")
+  id("dev.petuska.klip")
 }
 
 kotlin {
+  explicitApi()
+  jvm()
+  js {
+    binaries.library()
+    useCommonJs()
+    nodejs()
+  }
+  
   sourceSets {
     val commonMain by getting
     val commonTest by getting {
       dependencies {
         implementation(project(":test"))
+        implementation("dev.petuska:klip:_")
       }
     }
     create("nativeMain") {
@@ -27,26 +37,6 @@ kotlin {
     create("nativeTest") {
       dependsOn(commonTest)
     }
-  }
-  
-  explicitApi()
-  jvm()
-  js {
-    binaries.library()
-    useCommonJs()
-    nodejs()
-//          browser {
-//            commonWebpackConfig {
-//              cssSupport.enabled = true
-//            }
-//            testTask {
-//              useKarma {
-//                useFirefox()
-//                useChrome()
-//                useSafari()
-//              }
-//            }
-//          }
   }
   
   nativeTargetGroup(
@@ -69,6 +59,7 @@ kotlin {
     iosArm32(),
     iosArm64(),
     iosX64(),
+    iosSimulatorArm64(),
   )
   
   nativeTargetGroup(
@@ -77,22 +68,27 @@ kotlin {
     watchosArm64(),
     watchosX86(),
     watchosX64(),
+    watchosSimulatorArm64(),
   )
   
   nativeTargetGroup(
     "tvos",
     tvosArm64(),
     tvosX64(),
+    tvosSimulatorArm64(),
   )
   
-  macosX64()
+  nativeTargetGroup(
+    "macos",
+    macosX64(),
+    macosArm64(),
+  )
   
   nativeTargetGroup(
     "mingw",
     mingwX86(),
     mingwX64(),
   )
-  
   val targetsWithCoroutines = KotlinTargetDetails.values()
     .filter(KotlinTargetDetails::hasCoroutines)
     .map(KotlinTargetDetails::presetName)

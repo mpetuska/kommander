@@ -6,6 +6,7 @@ plugins {
 rootProject.name = "kontainers"
 include(":test")
 include(
+  ":lib:kontainers-core",
   ":lib:kontainers-buildah",
-  ":lib:kontainers-podman"
+  ":lib:kontainers-podman",
 )
