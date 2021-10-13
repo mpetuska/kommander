@@ -27,14 +27,14 @@ class BuildahITest : BlockingTest {
     program = program storageDriver "storageDriver" storageOpt "storageOpt"
     program = program userNsUidMap "userNsUidMap" userNsGidMap "userNsGidMap"
 
-    program.cmd().toString().assertKlip()
+    program.cmd().assertKlip()
   }
 
   @Test
   fun buildAllStaticOptions() = blockingTest {
     val program = buildah.help().version() + "my" + "custom" + 1 + true
 
-    program.cmd().toString().assertKlip()
+    program.cmd().assertKlip()
   }
 
   @Test

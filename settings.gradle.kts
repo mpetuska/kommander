@@ -10,3 +10,7 @@ include(
   ":lib:kommander-buildah",
   ":lib:kommander-podman",
 )
+
+refreshVersions {
+  extraArtifactVersionKeyRules(rootDir.resolve("versions.rules"))
+}
