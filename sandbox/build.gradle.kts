@@ -16,6 +16,6 @@ application {
 }
 
 dependencies {
-  implementation("dev.petuska:kontainers")
+  implementation("dev.petuska:kommander")
   testImplementation("dev.petuska:test")
 }

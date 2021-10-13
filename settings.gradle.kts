@@ -3,10 +3,10 @@ plugins {
   id("com.gradle.enterprise") version "3.7"
 }
 
-rootProject.name = "kontainers"
+rootProject.name = "kommander"
 include(":test")
 include(
-  ":lib:kontainers-core",
-  ":lib:kontainers-buildah",
-  ":lib:kontainers-podman",
+  ":lib:kommander-core",
+  ":lib:kommander-buildah",
+  ":lib:kommander-podman",
 )
