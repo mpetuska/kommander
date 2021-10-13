@@ -1,7 +1,6 @@
 package dev.petuska.kontainers.core.util
 
 import kotlin.js.Json
-import kotlin.js.json
 
 @JsModule("child_process")
 private external object ChildProcess {
