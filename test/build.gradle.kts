@@ -11,6 +11,7 @@ kotlin {
       dependencies {
         api(kotlin("test"))
         api(kotlin("test-annotations-common"))
+        api("dev.petuska:kon:_")
       }
     }
     named("jvmMain") {

@@ -1,9 +1,7 @@
 package dev.petuska.kommander.core
 
 import dev.petuska.kommander.core.util.CMD
-import dev.petuska.kommander.core.util.KommanderArgumentDsl
 import dev.petuska.kommander.core.util.KommanderCommandDsl
-import dev.petuska.kommander.core.util.KommanderOptionDsl
 import dev.petuska.kommander.core.util.Named
 import dev.petuska.kommander.core.util.StringLike
 
@@ -21,6 +19,10 @@ public interface Command<out O : Option> : Named {
   public fun registerCommand(command: GenericCommand)
 
   public fun command(): CMD = program.command()
+  public fun toPieces(): List<String> {
+    return listOf(name) + (options + arguments).map(StringLike::stringify) + commands.flatMap { it.toPieces() }
+  }
+
   override fun stringify(): String = name + (options + arguments).map(StringLike::stringify).joinToString { " $it" }
 }
 
@@ -49,6 +51,12 @@ public class CommandImpl<O : Option>(
   override fun toString(): String = stringify()
 }
 
+/**
+ * Breaks the command into the next line
+ */
+@KommanderCommandDsl
+public infix operator fun <T : Any> T.invoke(lambda: T.() -> Unit): T = apply(lambda)
+
 @KommanderCommandDsl
 public infix fun <O, T : Command<O>, C : GenericCommand> T.cmd(command: C): T {
   registerCommand(command)
@@ -57,27 +65,6 @@ public infix fun <O, T : Command<O>, C : GenericCommand> T.cmd(command: C): T {
 
 @KommanderCommandDsl
 public fun <O, T : Command<O>, C : GenericCommand> T.cmd(command: C, opts: C.() -> Unit): T {
-  registerCommand(command)
+  registerCommand(command.apply(opts))
   return this
 }
-
-@KommanderOptionDsl
-public infix fun <O : Option, T : Command<O>> T.opt(option: O): T {
-  registerOption(option)
-  return this
-}
-
-@KommanderArgumentDsl
-public infix fun <O : Option, T : Command<O>> T.arg(argument: GenericArgument): T {
-  registerArgument(argument)
-  return this
-}
-
-@KommanderArgumentDsl
-public operator fun <O : Option, T : Command<O>> T.plus(argument: String): T = arg(Argument.String(argument))
-
-@KommanderArgumentDsl
-public operator fun <O : Option, T : Command<O>> T.plus(argument: Number): T = arg(Argument.Number(argument))
-
-@KommanderArgumentDsl
-public operator fun <O : Option, T : Command<O>> T.plus(argument: Boolean): T = arg(Argument.Boolean(argument))

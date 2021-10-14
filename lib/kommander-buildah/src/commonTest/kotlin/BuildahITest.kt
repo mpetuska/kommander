@@ -23,10 +23,10 @@ import kotlin.test.assertContains
 class BuildahITest : BlockingTest {
   @Test
   fun buildAllDynamicOptions() = blockingTest {
-    var program = buildah logLevel LogLevel.debug logLevel "info" root "root" runRoot "runRoot"
-    program = program registriesConf "registriesConf" registriesConfDir "registriesConfDir"
-    program = program storageDriver "storageDriver" storageOpt "storageOpt"
-    program = program userNsUidMap "userNsUidMap" userNsGidMap "userNsGidMap"
+    val program = buildah logLevel LogLevel.debug logLevel "info" root "root" runRoot "runRoot" {
+    } registriesConf "registriesConf" registriesConfDir "registriesConfDir" {
+    } storageDriver "storageDriver" storageOpt "storageOpt" {
+    } userNsUidMap "userNsUidMap" userNsGidMap "userNsGidMap"
 
     program.command().assertKlip()
   }
@@ -34,8 +34,8 @@ class BuildahITest : BlockingTest {
   @Test
   fun buildAllStaticOptions() = blockingTest {
     val program = buildah.version.help + "my" + "custom" + 1 + true Help {
-      this.help
-      this.Help
+      help
+      Help
     }
 
     program.command().assertKlip()

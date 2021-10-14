@@ -36,7 +36,11 @@ public class ProgramImpl<O : Option>(
   override fun stringify(): String =
     name + (options + arguments + commands).map(StringLike::stringify).joinToString { " $it" }
 
-  override fun command(): CMD = CMD(name, (options + arguments + commands).map(StringLike::stringify))
+  override fun command(): CMD {
+    val subcommands = commands.flatMap { it.toPieces() }
+    return CMD(name, (options + arguments).map(StringLike::stringify) + subcommands)
+  }
+
   override fun toString(): String = stringify()
 }
 

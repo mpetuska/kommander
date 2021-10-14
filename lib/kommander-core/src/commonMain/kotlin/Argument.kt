@@ -1,5 +1,6 @@
 package dev.petuska.kommander.core
 
+import dev.petuska.kommander.core.util.KommanderArgumentDsl
 import dev.petuska.kommander.core.util.Valued
 
 public typealias GenericArgument = Argument<*>
@@ -17,3 +18,18 @@ public sealed interface Argument<T> : Valued<T> {
     override fun toString(): kotlin.String = stringify()
   }
 }
+
+@KommanderArgumentDsl
+public infix fun <O : Option, T : Command<O>> T.arg(argument: GenericArgument): T {
+  registerArgument(argument)
+  return this
+}
+
+@KommanderArgumentDsl
+public operator fun <O : Option, T : Command<O>> T.plus(argument: String): T = arg(Argument.String(argument))
+
+@KommanderArgumentDsl
+public operator fun <O : Option, T : Command<O>> T.plus(argument: Number): T = arg(Argument.Number(argument))
+
+@KommanderArgumentDsl
+public operator fun <O : Option, T : Command<O>> T.plus(argument: Boolean): T = arg(Argument.Boolean(argument))
