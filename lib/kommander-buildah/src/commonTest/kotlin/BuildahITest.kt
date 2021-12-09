@@ -16,31 +16,30 @@ import dev.petuska.kommander.buildah.dsl.option.userNsUidMap
 import dev.petuska.kommander.buildah.dsl.option.version
 import dev.petuska.kommander.core.invoke
 import dev.petuska.kommander.core.plus
-import local.test.BlockingTest
 import kotlin.test.Test
 import kotlin.test.assertContains
+import local.test.BlockingTest
 
 class BuildahITest : BlockingTest {
   @Test
   fun buildAllDynamicOptions() = blockingTest {
-    val program = buildah logLevel LogLevel.debug logLevel "info" root "root" runRoot "runRoot" {
-    } registriesConf "registriesConf" registriesConfDir "registriesConfDir" {
-    } storageDriver "storageDriver" storageOpt "storageOpt" {
-    } userNsUidMap "userNsUidMap" userNsGidMap "userNsGidMap"
-
+    val program = buildah logLevel LogLevel.debug logLevel "info" root
+        "root" runRoot "runRoot" registriesConf "registriesConf" registriesConfDir "registriesConfDir" storageDriver
+        "storageDriver" storageOpt "storageOpt" userNsUidMap "userNsUidMap" userNsGidMap "userNsGidMap"
+    
     program.command().assertKlip()
   }
-
+  
   @Test
   fun buildAllStaticOptions() = blockingTest {
     val program = buildah.version.help + "my" + "custom" + 1 + true Help {
       help
       Help
     }
-
+    
     program.command().assertKlip()
   }
-
+  
   @Test
   fun executeVersion() = blockingTest {
     val program = buildah.version

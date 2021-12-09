@@ -59,12 +59,12 @@ public operator fun <T : GenericProgram> T.invoke(stdout: (String) -> Unit = ::p
 @KommanderProgramDsl
 public operator fun <T : GenericProgram> T.invoke(): String {
   val cmd = command()
-  var result = ""
+  val result = StringBuilder()
   val exit = cmd {
-    result += it
+    result.appendLine(it)
   }
   if (exit == 0) {
-    return result
+    return result.toString()
   } else {
     println(result)
     error("$cmd returned non-zero exit code: $exit")

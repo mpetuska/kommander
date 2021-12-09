@@ -11,18 +11,18 @@ public interface Command<out O : Option> : Named {
   public val program: GenericProgram
   public val options: Set<Option>
   public fun registerOption(option: Option)
-
+  
   public val arguments: List<GenericArgument>
   public fun registerArgument(argument: GenericArgument)
-
+  
   public val commands: List<GenericCommand>
   public fun registerCommand(command: GenericCommand)
-
+  
   public fun command(): CMD = program.command()
   public fun toPieces(): List<String> {
     return listOf(name) + (options + arguments).map(StringLike::stringify) + commands.flatMap { it.toPieces() }
   }
-
+  
   override fun stringify(): String = name + (options + arguments).map(StringLike::stringify).joinToString { " $it" }
 }
 
@@ -37,25 +37,19 @@ public class CommandImpl<O : Option>(
   override fun registerOption(option: Option) {
     _options.add(option)
   }
-
+  
   override val arguments: List<GenericArgument> get() = _arguments
   override fun registerArgument(argument: GenericArgument) {
     _arguments.add(argument)
   }
-
+  
   override val commands: List<GenericCommand> get() = _commands
   override fun registerCommand(command: GenericCommand) {
     _commands.add(command)
   }
-
+  
   override fun toString(): String = stringify()
 }
-
-/**
- * Breaks the command into the next line
- */
-@KommanderCommandDsl
-public infix operator fun <T : Any> T.invoke(lambda: T.() -> Unit): T = apply(lambda)
 
 @KommanderCommandDsl
 public infix fun <O, T : Command<O>, C : GenericCommand> T.cmd(command: C): T {

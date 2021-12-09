@@ -1,6 +1,6 @@
 :::::>> KLIPS :::::>>
-:::::>>dev.petuska.kommander.buildah.BuildahITest.buildAllDynamicOptions#0:::::>>
+:::::>>type=TEXT:::::>>dev.petuska.kommander.buildah.BuildahITest.buildAllDynamicOptions#0:::::>>
 buildah --log-level debug --log-level info --root root --runroot runRoot --registries-conf registriesConf --registries-conf-dir registriesConfDir --storage-driver storageDriver --storage-opt storageOpt --userns-uid-map userNsUidMap --userns-gid-map userNsGidMap
-:::::>>dev.petuska.kommander.buildah.BuildahITest.buildAllStaticOptions#0:::::>>
+:::::>>type=TEXT:::::>>dev.petuska.kommander.buildah.BuildahITest.buildAllStaticOptions#0:::::>>
 buildah --version --help my custom 1 true help --help help
 :::::>>:::::>>:::::>>
