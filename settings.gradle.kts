@@ -1,6 +1,6 @@
 plugins {
   id("de.fayard.refreshVersions") version "0.23.0"
-  id("com.gradle.enterprise") version "3.12.3"
+  id("com.gradle.enterprise") version "3.12.5"
 }
 
 rootProject.name = "kommander"
